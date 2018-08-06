@@ -4,7 +4,7 @@ Navicat MySQL Data Transfer
 Source Server         : localhost
 Source Server Version : 50553
 Source Host           : 127.0.0.1:3306
-Source Database       : whisper
+Source Database       : db_clive
 
 Target Server Type    : MYSQL
 Target Server Version : 50553
@@ -16,10 +16,10 @@ Date: 2018-04-12 11:49:05
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for ws_admins
+-- Table structure for cl_admins
 -- ----------------------------
-DROP TABLE IF EXISTS `ws_admins`;
-CREATE TABLE `ws_admins` (
+DROP TABLE IF EXISTS `cl_admins`;
+CREATE TABLE `cl_admins` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '用户名',
   `password` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT '密码',
@@ -30,16 +30,16 @@ CREATE TABLE `ws_admins` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
--- Records of ws_admins
+-- Records of cl_admins
 -- ----------------------------
-INSERT INTO `ws_admins` VALUES ('1', 'admin', 'cbb2fc826b6cbb2305cca827529b739b', '127.0.0.1', '1523502595', '1');
-INSERT INTO `ws_admins` VALUES ('2', '小白', 'cb78913de44f5a36ab63e8ffacde44b0', '', '0', '1');
+INSERT INTO `cl_admins` VALUES ('1', 'admin', 'cbb2fc826b6cbb2305cca827529b739b', '127.0.0.1', '1523502595', '1');
+INSERT INTO `cl_admins` VALUES ('2', '小白', 'cb78913de44f5a36ab63e8ffacde44b0', '', '0', '1');
 
 -- ----------------------------
--- Table structure for ws_chat_log
+-- Table structure for cl_chat_log
 -- ----------------------------
-DROP TABLE IF EXISTS `ws_chat_log`;
-CREATE TABLE `ws_chat_log` (
+DROP TABLE IF EXISTS `cl_chat_log`;
+CREATE TABLE `cl_chat_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `from_id` varchar(55) NOT NULL COMMENT '网页用户随机编号(仅为记录参考记录)',
   `from_name` varchar(255) NOT NULL COMMENT '发送者名称',
@@ -54,14 +54,14 @@ CREATE TABLE `ws_chat_log` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of ws_chat_log
+-- Records of cl_chat_log
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ws_groups
+-- Table structure for cl_groups
 -- ----------------------------
-DROP TABLE IF EXISTS `ws_groups`;
-CREATE TABLE `ws_groups` (
+DROP TABLE IF EXISTS `cl_groups`;
+CREATE TABLE `cl_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '分组id',
   `name` varchar(255) NOT NULL COMMENT '分组名称',
   `status` tinyint(1) NOT NULL COMMENT '分组状态',
@@ -69,16 +69,16 @@ CREATE TABLE `ws_groups` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of ws_groups
+-- Records of cl_groups
 -- ----------------------------
-INSERT INTO `ws_groups` VALUES ('1', '售前组', '1');
-INSERT INTO `ws_groups` VALUES ('2', '售后组', '1');
+INSERT INTO `cl_groups` VALUES ('1', '售前组', '1');
+INSERT INTO `cl_groups` VALUES ('2', '售后组', '1');
 
 -- ----------------------------
--- Table structure for ws_kf_config
+-- Table structure for cl_kf_config
 -- ----------------------------
-DROP TABLE IF EXISTS `ws_kf_config`;
-CREATE TABLE `ws_kf_config` (
+DROP TABLE IF EXISTS `cl_kf_config`;
+CREATE TABLE `cl_kf_config` (
   `id` int(11) NOT NULL,
   `max_service` int(11) NOT NULL COMMENT '每个客服最大服务的客户数',
   `change_status` tinyint(1) NOT NULL COMMENT '是否启用转接',
@@ -86,15 +86,15 @@ CREATE TABLE `ws_kf_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of ws_kf_config
+-- Records of cl_kf_config
 -- ----------------------------
-INSERT INTO `ws_kf_config` VALUES ('1', '5', '1');
+INSERT INTO `cl_kf_config` VALUES ('1', '5', '1');
 
 -- ----------------------------
--- Table structure for ws_leave_msg
+-- Table structure for cl_leave_msg
 -- ----------------------------
-DROP TABLE IF EXISTS `ws_leave_msg`;
-CREATE TABLE `ws_leave_msg` (
+DROP TABLE IF EXISTS `cl_leave_msg`;
+CREATE TABLE `cl_leave_msg` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(155) NOT NULL COMMENT '留言人名称',
   `phone` char(11) NOT NULL COMMENT '留言人手机号',
@@ -104,14 +104,14 @@ CREATE TABLE `ws_leave_msg` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of ws_leave_msg
+-- Records of cl_leave_msg
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ws_now_data
+-- Table structure for cl_now_data
 -- ----------------------------
-DROP TABLE IF EXISTS `ws_now_data`;
-CREATE TABLE `ws_now_data` (
+DROP TABLE IF EXISTS `cl_now_data`;
+CREATE TABLE `cl_now_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `is_talking` int(5) NOT NULL DEFAULT '0' COMMENT '正在咨询的人数',
   `in_queue` int(5) NOT NULL DEFAULT '0' COMMENT '排队等待的人数',
@@ -124,14 +124,14 @@ CREATE TABLE `ws_now_data` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of ws_now_data
+-- Records of cl_now_data
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ws_reply
+-- Table structure for cl_reply
 -- ----------------------------
-DROP TABLE IF EXISTS `ws_reply`;
-CREATE TABLE `ws_reply` (
+DROP TABLE IF EXISTS `cl_reply`;
+CREATE TABLE `cl_reply` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `word` varchar(255) NOT NULL COMMENT '自动回复的内容',
   `status` tinyint(1) NOT NULL DEFAULT '2' COMMENT '是否自动回复',
@@ -139,15 +139,15 @@ CREATE TABLE `ws_reply` (
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of ws_reply
+-- Records of cl_reply
 -- ----------------------------
-INSERT INTO `ws_reply` VALUES ('1', '欢迎使用whisper', '2');
+INSERT INTO `cl_reply` VALUES ('1', '欢迎使用clive', '2');
 
 -- ----------------------------
--- Table structure for ws_service_data
+-- Table structure for cl_service_data
 -- ----------------------------
-DROP TABLE IF EXISTS `ws_service_data`;
-CREATE TABLE `ws_service_data` (
+DROP TABLE IF EXISTS `cl_service_data`;
+CREATE TABLE `cl_service_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `is_talking` int(5) NOT NULL DEFAULT '0' COMMENT '正在咨询的人数',
   `in_queue` int(5) NOT NULL DEFAULT '0' COMMENT '排队等待的人数',
@@ -162,14 +162,14 @@ CREATE TABLE `ws_service_data` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of ws_service_data
+-- Records of cl_service_data
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ws_service_log
+-- Table structure for cl_service_log
 -- ----------------------------
-DROP TABLE IF EXISTS `ws_service_log`;
-CREATE TABLE `ws_service_log` (
+DROP TABLE IF EXISTS `cl_service_log`;
+CREATE TABLE `cl_service_log` (
   `user_id` varchar(55) NOT NULL COMMENT '会员的id',
   `client_id` varchar(20) NOT NULL COMMENT '会员的客户端标识',
   `user_name` varchar(255) DEFAULT NULL COMMENT '会员名称',
@@ -184,14 +184,14 @@ CREATE TABLE `ws_service_log` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of ws_service_log
+-- Records of cl_service_log
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for ws_users
+-- Table structure for cl_users
 -- ----------------------------
-DROP TABLE IF EXISTS `ws_users`;
-CREATE TABLE `ws_users` (
+DROP TABLE IF EXISTS `cl_users`;
+CREATE TABLE `cl_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '客服id',
   `user_name` varchar(255) NOT NULL COMMENT '客服名称',
   `user_pwd` varchar(32) NOT NULL COMMENT '客服登录密码',
@@ -203,18 +203,18 @@ CREATE TABLE `ws_users` (
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of ws_users
+-- Records of cl_users
 -- ----------------------------
-INSERT INTO `ws_users` VALUES ('1', '客服', 'cb78913de44f5a36ab63e8ffacde44b0', '/uploads/20171024/902b5294f41f6a7d1e1451c7c0969a21.jpg', '1', '2', '1');
-INSERT INTO `ws_users` VALUES ('2', '客服2', 'cb78913de44f5a36ab63e8ffacde44b0', '/uploads/20171024/43cb54a995b89d0926e1de31af0074fc.jpg', '1', '2', '1');
-INSERT INTO `ws_users` VALUES ('4', '客服3', '61fcb6b65f1d3da179b5b4cf397eda86', '/uploads/20180120/e20f7ab05a193c0dd97271461a898b57.png', '1', '2', '2');
-INSERT INTO `ws_users` VALUES ('5', '客服小美', '61fcb6b65f1d3da179b5b4cf397eda86', '/uploads/20180314/e7aa9b1ae857345b99b0a278a8f1b63f.jpeg', '1', '2', '2');
+INSERT INTO `cl_users` VALUES ('1', '客服', 'cb78913de44f5a36ab63e8ffacde44b0', '/uploads/20171024/902b5294f41f6a7d1e1451c7c0969a21.jpg', '1', '2', '1');
+INSERT INTO `cl_users` VALUES ('2', '客服2', 'cb78913de44f5a36ab63e8ffacde44b0', '/uploads/20171024/43cb54a995b89d0926e1de31af0074fc.jpg', '1', '2', '1');
+INSERT INTO `cl_users` VALUES ('4', '客服3', '61fcb6b65f1d3da179b5b4cf397eda86', '/uploads/20180120/e20f7ab05a193c0dd97271461a898b57.png', '1', '2', '2');
+INSERT INTO `cl_users` VALUES ('5', '客服小美', '61fcb6b65f1d3da179b5b4cf397eda86', '/uploads/20180314/e7aa9b1ae857345b99b0a278a8f1b63f.jpeg', '1', '2', '2');
 
 -- ----------------------------
--- Table structure for ws_words
+-- Table structure for cl_words
 -- ----------------------------
-DROP TABLE IF EXISTS `ws_words`;
-CREATE TABLE `ws_words` (
+DROP TABLE IF EXISTS `cl_words`;
+CREATE TABLE `cl_words` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` varchar(255) NOT NULL COMMENT '常用语内容',
   `add_time` datetime NOT NULL COMMENT '添加时间',
@@ -223,6 +223,6 @@ CREATE TABLE `ws_words` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of ws_words
+-- Records of cl_words
 -- ----------------------------
-INSERT INTO `ws_words` VALUES ('1', '欢迎来到whisper v1.0.0', '2017-10-25 12:51:09', '1');
+INSERT INTO `cl_words` VALUES ('1', '欢迎来到clive v1.0.0', '2018-08-06', '1');

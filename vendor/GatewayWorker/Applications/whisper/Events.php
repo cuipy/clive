@@ -40,7 +40,7 @@ class Events
     public static function onWorkerStart($worker)
     {
         if (empty(self::$db)) {
-            self::$db = new \Workerman\MySQL\Connection('192.168.1.102', '3306', 'root', 'root', 'whisper');
+            self::$db = new \Workerman\MySQL\Connection('127.0.0.1', '3306', 'cuipy', 'Cuipy!@#123', 'db_clive');
         }
 
         if (empty(self::$global)) {
@@ -218,7 +218,7 @@ class Events
                         'time_line' => time()
                     ];
 
-                    self::$db->insert('ws_chat_log')->cols($serviceLog)->query();
+                    self::$db->insert('cl_chat_log')->cols($serviceLog)->query();
                     unset($serviceLog);
                 }
                 break;
@@ -241,7 +241,7 @@ class Events
                 unset($reLink);
 
                 // 记录该客服与该会员的服务结束
-                self::$db->query("update `ws_service_log` set `end_time` = " . time() . " where `client_id`= '" . $userClient . "'");
+                self::$db->query("update `cl_service_log` set `end_time` = " . time() . " where `client_id`= '" . $userClient . "'");
 
                 // 从当前客服的服务表中删除这个会员
                 $old = $kfList = self::$global->kfList;
@@ -351,7 +351,7 @@ class Events
                     $isServiceUserOut = true;
 
                     // 根据client id 去更新这个会员离线的一些信息
-                    self::$db->query("update `ws_service_log` set `end_time` = " . time() . " where `client_id`= '" . $client_id . "'");
+                    self::$db->query("update `cl_service_log` set `end_time` = " . time() . " where `client_id`= '" . $client_id . "'");
 
                     // 从会员的内存表中检索出该会员的信息，并更新内存
                     $oldSimple = $simpleList = self::$global->uidSimpleList;
@@ -369,7 +369,7 @@ class Events
                     while(!self::$global->cas('uidSimpleList', $oldSimple, $simpleList)){};
                     unset($oldSimple, $simpleList);
 
-                    //$outUser = self::$db->query("select `user_id`,`group_id` from `ws_service_log` where `client_id`= '" . $client_id . "'");
+                    //$outUser = self::$db->query("select `user_id`,`group_id` from `cl_service_log` where `client_id`= '" . $client_id . "'");
                     // 通知 客服删除退出的用户
                     if(!empty($outUser)){
                         $del_message = [
@@ -589,7 +589,7 @@ class Events
             unset($noticeUser);
 
             // 检测是否开启自动应答
-            $sayHello = self::$db->query('select `word`,`status` from `ws_reply` where `id` = 1');
+            $sayHello = self::$db->query('select `word`,`status` from `cl_reply` where `id` = 1');
             if(!empty($sayHello) && 1 == $sayHello['0']['status']){
 
                 $hello = [
@@ -630,7 +630,7 @@ class Events
                 'end_time' => 0
             ];
 
-            self::$db->insert('ws_service_log')->cols($serviceLog)->query();
+            self::$db->insert('cl_service_log')->cols($serviceLog)->query();
             unset($serviceLog);
 
             // 写入接入值
@@ -745,7 +745,7 @@ class Events
      */
     private static function getMaxServiceNum()
     {
-        $maxNumber = self::$db->query('select `max_service` from `ws_kf_config` where `id` = 1');
+        $maxNumber = self::$db->query('select `max_service` from `cl_kf_config` where `id` = 1');
         if(empty($maxNumber)){
             $maxNumber = 5;
         }else{
@@ -795,7 +795,7 @@ class Events
             'total_in' => self::$global->$key,
             'now_date' => date('Y-m-d')
         ];
-        self::$db->update('ws_now_data')->cols($param)->where('id=1')->query();
+        self::$db->update('cl_now_data')->cols($param)->where('id=1')->query();
 
         if(2 == $flag){
             $param = [
@@ -808,7 +808,7 @@ class Events
                 'add_hour' => date('H'),
                 'add_minute' => date('i'),
             ];
-            self::$db->insert('ws_service_data')->cols($param)->query();
+            self::$db->insert('cl_service_data')->cols($param)->query();
         }
         unset($kfList, $nowTalking, $inQueue, $onlineKf, $key, $key2, $param);
     }
