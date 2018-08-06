@@ -253,7 +253,7 @@ function getTime(){
 // 展示系统消息
 function showSystem(msg){
     var _html = document.getElementById('chat-list').innerHTML;
-    _html += '<div class="whisper-chat-system"><span>' + msg.content + '</span></div>';
+    _html += '<div class="clive-chat-system"><span>' + msg.content + '</span></div>';
 
     document.getElementById('chat-list').innerHTML = _html;
 }
@@ -311,7 +311,7 @@ function sendMsg(sendMsg){
 // 展示发送来的消息
 function showMsg(info, flag){
     // 清除系统消息
-    document.getElementsByClassName('whisper-chat-system').innerHTML = '';
+    document.getElementsByClassName('clive-chat-system').innerHTML = '';
 
     var _html = document.getElementById('chat-list').innerHTML;
     var content = replaceContent(info.content);
@@ -424,7 +424,7 @@ function showBigPic(){
     layui.use('jquery', function(){
         var $ = layui.jquery;
 
-        $(".layui-whisper-photos").on('click', function () {
+        $(".layui-clive-photos").on('click', function () {
             var src = this.src;
             layer.photos({
                 photos: {

@@ -1,10 +1,10 @@
-var whisper = function(){
+var clive = function(){
 
     //var isOpen = 0;
     var baseConfig = {
         id: 0
-        ,whisper_domain: ''
-        ,title: 'whisper客服'
+        ,clive_domain: ''
+        ,title: 'clive客服'
         ,name: ''
         ,group: 0
         ,avatar: ''
@@ -22,7 +22,7 @@ var whisper = function(){
             return false;
         }
 
-        var url = baseConfig.whisper_domain + '/index/index/chat' + '?group=' + baseConfig.group + '&id=' + baseConfig.id +
+        var url = baseConfig.clive_domain + '/index/index/chat' + '?group=' + baseConfig.group + '&id=' + baseConfig.id +
             '&name=' + baseConfig.name + '&avatar=' + baseConfig.avatar;
 
         if(self.isMobile()){
@@ -44,7 +44,7 @@ var whisper = function(){
     self.openWindow = function(url, name){
         layer.open({
             type: 2,
-            id: 'whisper', // 允许打开一次
+            id: 'clive', // 允许打开一次
             title: name,
             shade: 0,
             area: ['800px', '640px'],

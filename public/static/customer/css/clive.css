@@ -212,15 +212,15 @@ body {
     text-align: center;
 }
 
-.layui-whisper-file,
-.small-chat-box .content .layui-whisper-file{display: block; text-align: center; }
-.small-chat-box .content .layui-whisper-file{color: #333;}
-.small-chat-box .content .layui-whisper-file:hover{opacity: 0.9}
-.small-chat-box .content .layui-whisper-file i{font-size: 80px; line-height: 80px;}
-.small-chat-box .content .layui-whisper-file cite{display: block; line-height: 20px; font-size: 14px;}
-.small-chat-box .content .layui-whisper-audio{text-align: center; cursor: pointer;}
-.small-chat-box .content .layui-whisper-audio .layui-icon{position: relative; top: 5px; font-size: 24px;}
-.small-chat-box .content .layui-whisper-audio p{margin-top: 3px;}
-.small-chat-box .content .layui-whisper-video{width: 120px; height: 80px; line-height: 80px; background-color: #333; text-align: center; border-radius: 3px;}
-.small-chat-box .content .layui-whisper-video .layui-icon{font-size: 36px; cursor: pointer; color: #fff;}
-.small-chat-box .content .whisper-chat-system span {  display: inline-block; line-height: 30px;  padding: 0 15px;  border-radius: 3px;  background-color: #e2e2e2;  cursor: default;  font-size: 14px;}
+.layui-clive-file,
+.small-chat-box .content .layui-clive-file{display: block; text-align: center; }
+.small-chat-box .content .layui-clive-file{color: #333;}
+.small-chat-box .content .layui-clive-file:hover{opacity: 0.9}
+.small-chat-box .content .layui-clive-file i{font-size: 80px; line-height: 80px;}
+.small-chat-box .content .layui-clive-file cite{display: block; line-height: 20px; font-size: 14px;}
+.small-chat-box .content .layui-clive-audio{text-align: center; cursor: pointer;}
+.small-chat-box .content .layui-clive-audio .layui-icon{position: relative; top: 5px; font-size: 24px;}
+.small-chat-box .content .layui-clive-audio p{margin-top: 3px;}
+.small-chat-box .content .layui-clive-video{width: 120px; height: 80px; line-height: 80px; background-color: #333; text-align: center; border-radius: 3px;}
+.small-chat-box .content .layui-clive-video .layui-icon{font-size: 36px; cursor: pointer; color: #fff;}
+.small-chat-box .content .clive-chat-system span {  display: inline-block; line-height: 30px;  padding: 0 15px;  border-radius: 3px;  background-color: #e2e2e2;  cursor: default;  font-size: 14px;}
