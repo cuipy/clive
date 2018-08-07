@@ -14,7 +14,11 @@ class Index extends Base
             'groups' => db('groups')->where('status', 1)->select(),
             'status' => db('kf_config')->where('id', 1)->find()
         ]);
-
+		
+		if(request()->isMobile()){
+			return $this->fetch('mobile');
+        }
+		
         return $this->fetch();
     }
 

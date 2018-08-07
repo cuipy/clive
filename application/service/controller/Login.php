@@ -10,6 +10,10 @@ class Login extends Controller
         $this->assign([
             'version' => config('version')
         ]);
+		
+		if(request()->isMobile()){
+			return $this->fetch('mobile');
+        }
 
         return $this->fetch();
     }
