@@ -168,7 +168,6 @@ document.getElementById('msg').addEventListener('paste', function(e){
     }
 
 });
-
 // 截图提示
 document.getElementById('cut').addEventListener('mouseover', function(){
     layer.tips('将您剪切好的图片粘贴到输入框即可', "#cut", {tips: 1});
@@ -194,7 +193,15 @@ document.addEventListener("click",function(){
         flag = 1;
     }
 });
-
+// 监听快捷键发送
+document.getElementById('msg').addEventListener('keydown', function (e) {
+    if (e.keyCode != 13) return;
+    e.preventDefault();  // 取消事件的默认动作
+    sendMsg();
+    document.getElementById('msg').value = '';
+    // 滚动条自动定位到最底端
+    wordBottom();
+});
 // 点击发送消息
 document.getElementById('send').onclick = function(){
     sendMsg();
