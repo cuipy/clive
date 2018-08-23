@@ -48,7 +48,7 @@ class Index extends Base
             $offset = ($param['page'] - 1) * $limit;
 
             $logs = db('chat_log')->where(function($query) use($param){
-                    $query->where('from_id', $param['uid'])->where('to_id', 'KF' . cookie('l_user_id'));
+                $query->where('from_id', $param['uid'])->where('to_id', 'KF' . cookie('l_user_id'));
             })->whereOr(function($query) use($param){
                 $query->where('from_id', 'KF' . cookie('l_user_id'))->where('to_id', $param['uid']);
             })->limit($offset, $limit)->order('id', 'desc')->select();

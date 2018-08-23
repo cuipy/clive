@@ -2,6 +2,7 @@
 namespace app\index\controller;
 
 use think\Controller;
+use think\Session;
 
 class Index extends Controller
 {
@@ -13,20 +14,26 @@ class Index extends Controller
     // pc客户端
     public function chat()
     {
+        //把游客的id存放到session里面
+        if(Session::has('visitor_id')){
+            $visitor_id=session::get('visitor_id');
+        }else{
+            $visitor_id=input('param.id');
+            Session::set('visitor_id',$visitor_id);
+        }
         // 跳转到移动端
         if(request()->isMobile()){
             $param = http_build_query([
-                'id' => input('param.id'),
+                'id' => $visitor_id,
                 'name' => input('param.name'),
                 'group' => input('param.group'),
                 'avatar' => input('param.avatar')
             ]);
             $this->redirect('/index/index/mobile?' . $param);
         }
-
         $this->assign([
             'socket' => config('socket'),
-            'id' => input('param.id'),
+            'id' => $visitor_id,
             'name' => input('param.name'),
             'group' => input('param.group'),
             'avatar' => input('param.avatar'),
