@@ -21,7 +21,16 @@
                 </div>
                 <div class="ibox-content">
                     <form class="form-horizontal m-t layui-form" id="commentForm" method="post" action="{:url('system/customerService')}">
-
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">客服离开时的留言方式：</label>
+                            <div class="input-group col-sm-6">
+                                {if !empty($leave_status)}
+                                {foreach name="leave_status" item="vo" key="key"}
+                                <input type="radio" name="leave_status" value="{$key}" title="{$vo}" {if $key eq $config['leave_status']}checked{/if}>
+                                {/foreach}
+                                {/if}
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">每个客服最大服务人数：</label>
                             <div class="input-group col-sm-4">

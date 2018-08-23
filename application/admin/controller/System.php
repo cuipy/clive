@@ -49,7 +49,8 @@ class System extends Base
 
         $this->assign([
             'config' => db('kf_config')->where('id', 1)->find(),
-            'status' => config('kf_status')
+            'status' => config('kf_status'),
+            'leave_status' => config('leave_status')
         ]);
 
         return $this->fetch();
