@@ -56,8 +56,15 @@ if(config != undefined && config.socket != undefined){
             case 'wait':
 
                 if('暂时没有客服上班,请稍后再咨询。' == data.data.content){
-                    document.getElementById("chat-box").style.display = 'none';
-                    document.getElementById("leave-box").style.display = 'block';
+                    if(config.leave_status==0){
+                        document.getElementById("chat-box").style.display = 'none';
+                        document.getElementById("leave-box").style.display = 'block';
+                    }else{
+                        document.getElementById("chat-box").style.display = 'block';
+                        document.getElementById("leave-box").style.display = 'none';
+                        document.getElementById('title').innerText = '客服不在请留言';
+                    }
+
                     socket.close();
 
                     break;

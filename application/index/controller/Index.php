@@ -31,7 +31,9 @@ class Index extends Controller
             ]);
             $this->redirect('/index/index/mobile?' . $param);
         }
+        $leave_status=db('kf_config')->where('id',1)->value('leave_status');
         $this->assign([
+            'leave_status'=>$leave_status,
             'socket' => config('socket'),
             'id' => $visitor_id,
             'name' => input('param.name'),
