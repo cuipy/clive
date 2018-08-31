@@ -23,7 +23,6 @@ class Index extends Controller
             $visitor_name='会员'.substr($visitor_id, -3);
             Session::set('visitor_id',$visitor_id);
             Session::set('visitor_name',$visitor_name);
-
         }
         // 跳转到移动端
         if(request()->isMobile()){
