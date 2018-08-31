@@ -1,17 +1,16 @@
 
 var dqurl='http://zl.dakanggou.com:8066';
-document.write("<script src='https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js'></script><script src='https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js'></script><script src="+dqurl+"/static/admin/js/content.min.js?v=1.0.0></script><script src="+dqurl+"/static/customer/js/layer/layer.js></script><script src="+dqurl+"/static/customer/js/clive-tool.js></script><link href="+dqurl+"/static/demo/css/common.css rel='stylesheet'  />");
+document.write("<script src="+dqurl+"/static/admin/js/content.min.js?v=1.0.0></script><script src="+dqurl+"/static/customer/js/layer/layer.js></script><script src="+dqurl+"/static/customer/js/clive-tool.js></script>");
     document.write(
         '<div id="service" style="width: 161px;height: 290px;position: fixed;top: 350px;right: 0px;z-index: 100;">'
         +'<ul style="list-style: none;">'
         +'<li style="width: 161px;height: 60px;">'
-        +'<a href="javascript:;" style="height: 49px;float: right;display: block;min-width: 47px;max-width: 161px;">'
+        +'<a href="javascript:;" style="height: 49px;float: right;display: block;min-width: 47px;max-width: 161px;color: #007bc4;text-decoration: none;cursor: pointer;">'
         +'<div class="hides" style="width:161px;display:none;cursor: pointer;">'
         +'<div class="hides p1" style="margin-right: -143px;cursor: pointer;width: 47px;height: 49px;float: left;">'
         +'<img src='+dqurl+'/static/demo/images/ll04.png style="float: right;border: 0;cursor: pointer;">'
         +'</div>'
-        +'<div class="hides p2" id="buy-1" data-group="1" style="margin-right: -143px;\n' +
-        'cursor: pointer;width: 112px;background-color: #A7D2A9;height: 47px;margin-left: 47px;border: 1px solid #8BC48D;text-align: center;line-height: 47px;">'
+        +'<div class="hides p2" id="buy-1" data-group="1" style="margin-right: -143px;cursor: pointer;width: 112px;background-color: #A7D2A9;height: 47px;margin-left: 47px;border: 1px solid #8BC48D;text-align: center;line-height: 47px;">'
         +'<span style="color:#FFF;font-size:13px">售前客服</span>'
         +'</div>'
         +'</div>'
@@ -19,30 +18,12 @@ document.write("<script src='https://cdn.staticfile.org/jquery/2.1.4/jquery.min.
         +'</a>'
         +'</li>'
         +'<li style="width: 161px;height: 60px;">'
-        +'<a href="javascript:;" style="height: 49px;\n' +
-        'float: right;\n' +
-        'display: block;\n' +
-        'min-width: 47px;\n' +
-        'max-width: 161px;color: #007bc4;\n' +
-        'text-decoration: none;\n' +
-        'cursor: pointer;">'
-        +'<div class="hides" style="width:161px;display:none;margin-right: -143px;\n' +
-        'cursor: pointer;">'
-        +'<div class="hides p1" style="margin-right: -143px;\n' +
-        'cursor: pointer;width: 47px;\n' +
-        'height: 49px;\n' +
-        'float: left;">'
-        +'<img src='+dqurl+'/static/demo/images/ll04.png style="float: right;border: 0;\n' +
-        'cursor: pointer;">'
+        +'<a href="javascript:;" style="height: 49px;float: right;display: block;min-width: 47px;max-width: 161px;color: #007bc4;text-decoration: none;cursor: pointer;">'
+        +'<div class="hides" style="width:161px;display:none;margin-right: -143px;cursor: pointer;">'
+        +'<div class="hides p1" style="margin-right: -143px;cursor: pointer;width: 47px;height: 49px;float: left;">'
+        +'<img src='+dqurl+'/static/demo/images/ll04.png style="float: right;border: 0;cursor: pointer;">'
         +'</div>'
-        +'<div class="hides p2" id="buy-2" data-group="2" style="margin-right: -143px;\n' +
-        'cursor: pointer;width: 112px;\n' +
-        'background-color: #A7D2A9;\n' +
-        'height: 47px;\n' +
-        'margin-left: 47px;\n' +
-        'border: 1px solid #8BC48D;\n' +
-        'text-align: center;\n' +
-        'line-height: 47px;">'
+        +'<div class="hides p2" id="buy-2" data-group="2" style="margin-right: -143px;cursor: pointer;width: 112px;background-color: #A7D2A9;height: 47px;margin-left: 47px;border: 1px solid #8BC48D;text-align: center;line-height: 47px;">'
         +'<span style="color:#FFF;font-size:13px">售后客服</span>'
         +'</div>'
         +'</div>'
