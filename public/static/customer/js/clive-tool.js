@@ -3,7 +3,7 @@ var clive = function(){
     //var isOpen = 0;
     var baseConfig = {
         id: 0
-        ,clive_domain: 'http://zl.dakanggou.com:8066'
+        ,clive_domain: dqurl
         ,title: 'clive客服'
         ,name: ''
         ,group: 0
