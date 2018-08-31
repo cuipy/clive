@@ -3,7 +3,7 @@ var dqurl='http://zl.dakanggou.com:8066';
 document.write("<script src="+dqurl+"/static/admin/js/content.min.js?v=1.0.0></script><script src="+dqurl+"/static/customer/js/layer/layer.js></script><script src="+dqurl+"/static/customer/js/clive-tool.js></script>");
     document.write(
         '<div id="service" style="width: 161px;height: 290px;position: fixed;top: 350px;right: 0px;z-index: 100;">'
-        +'<ul style="list-style: none;">'
+        +'<ul style="list-style: none;margin: 0;padding: 0;">'
         +'<li style="width: 161px;height: 60px;">'
         +'<a href="javascript:;" style="height: 49px;float: right;display: block;min-width: 47px;max-width: 161px;color: #007bc4;text-decoration: none;cursor: pointer;">'
         +'<div class="hides" style="width:161px;display:none;cursor: pointer;">'
