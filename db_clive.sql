@@ -82,6 +82,7 @@ CREATE TABLE `cl_kf_config` (
   `id` int(11) NOT NULL,
   `max_service` int(11) NOT NULL COMMENT '每个客服最大服务的客户数',
   `change_status` tinyint(1) NOT NULL COMMENT '是否启用转接',
+  `leave_status` tinyint(4) NOT NULL COMMENT '客服离开时选择的留言方式：0为默认留言板，1为客服状态接受信息',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
