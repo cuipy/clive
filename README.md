@@ -79,9 +79,9 @@ make && make install
 
 ***  
 ## 测试说明
-测试地址：http://zl.dakanggou.com:8066/ <br>
-管理后台：http://zl.dakanggou.com:8066/admin/ &nbsp;&nbsp;账号和密码都是  admin<br>
-客服后台：http://zl.dakanggou.com:8066/service/ <br>
+测试地址：http://clive.test.dakanggou.com/ <br>
+管理后台：http://clive.test.dakanggou.com/admin/ &nbsp;&nbsp;账号和密码都是  admin<br>
+客服后台：http://clive.test.dakanggou.com/service/ <br>
 客服后台的账号和密码，在管理后台设置。  账号：客服2  密码：123456
 
 ***
@@ -93,3 +93,7 @@ make && make install
 * 访客的名称默认用 省_市_编号。
 * 访客可以在聊天窗口修改自己的昵称。
 * 访客的数据存储在 LocalStorage 里面。 记录下来是哪个域名的。或者是ip_端口
+
+
+## 2018-08-31优化
+* 实现简单JS将客服窗口嵌入页面的功能
