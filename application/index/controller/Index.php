@@ -17,15 +17,19 @@ class Index extends Controller
         //把游客的id存放到session里面
         if(Session::has('visitor_id')){
             $visitor_id=session::get('visitor_id');
+            $visitor_name=session::get('visitor_name');
         }else{
-            $visitor_id=input('param.id');
+            $visitor_id=session_id();
+            $visitor_name='会员'.substr($visitor_id, -3);
             Session::set('visitor_id',$visitor_id);
+            Session::set('visitor_name',$visitor_name);
+
         }
         // 跳转到移动端
         if(request()->isMobile()){
             $param = http_build_query([
                 'id' => $visitor_id,
-                'name' => input('param.name'),
+                'name' => $visitor_name,
                 'group' => input('param.group'),
                 'avatar' => input('param.avatar')
             ]);
@@ -36,7 +40,7 @@ class Index extends Controller
             'leave_status'=>$leave_status,
             'socket' => config('socket'),
             'id' => $visitor_id,
-            'name' => input('param.name'),
+            'name' => $visitor_name,
             'group' => input('param.group'),
             'avatar' => input('param.avatar'),
         ]);
