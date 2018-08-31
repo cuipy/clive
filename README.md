@@ -72,7 +72,7 @@ make && make install
 
 * 启动Gatewayworker   
 1 修改 /clive/vendor/GatewayWorker/Applications/whisper/Events.php的 43 行  
-2 进入 /clive/vender/GatewayWorker 文件夹，执行 php start.php start   
+2 进入 /clive/vendor/GatewayWorker 文件夹，执行 php start.php start
 3 后台运行  php start.php start -d  
 
 
