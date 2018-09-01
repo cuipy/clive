@@ -37,7 +37,7 @@ class Index extends Base
             ];
         }
 
-        $dbData = db('service_data')->where('add_date', date('Y-m-d'))->group('add_hour')->select();
+        $dbData = db('service_data')->where('add_date', date('Y-m-d'))->select();
 
         foreach($line as $key=>$vo){
             foreach($dbData as $k=>$v){
