@@ -2,6 +2,7 @@
 namespace app\index\controller;
 
 use think\Controller;
+use think\Request;
 use think\Session;
 
 class Index extends Controller
@@ -45,6 +46,17 @@ class Index extends Controller
         ]);
 
         return $this->fetch();
+    }
+    public function kfys_ajax()
+    {
+        if(request()->isAjax()) {
+            $mst = input('post.mst');
+            if ($mst == 1) {
+                $groups =db('groups');
+                $groupslist = $groups->where(array('status' => 1))->select();
+            }
+            return json(array('code' => 1, 'groupslist' => $groupslist));
+        }
     }
 
     // 移动客户端
