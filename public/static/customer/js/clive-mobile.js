@@ -47,7 +47,6 @@ function webSocket(){
         var login_data = '{"type":"userInit", "uid": "' + config.uid + '", "name" : "' + config.name +
 		'", "avatar" : "' + config.avatar + '", "group" : ' + config.group + '}';
 
-		console.log(login_data);
 		socket.send(login_data);
 
         // 解锁
