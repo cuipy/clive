@@ -76,6 +76,17 @@ make && make install
 3 后台运行  php start.php start -d  
 
 
+## 优化程序说明
+* 2018-9-4 优化客服发消息的时候，同一个用户的所有聊天窗口都会收到消息。应该只与对应的客服的窗口收到消息。    
+在clive-cli.js中，socket对象上增加了 kf_id 变量；    
+继续优化clive-mobile相关的问题；    
+继续优化客服端潜在的问题 -- 客服端似乎不存在这个问题；    
+修改后，需要将chat.html文件中的clive-cli.js的引用加上 ?v=n 以确保js不会缓存     
+
+
+
+
+
 
 ***  
 ## 测试说明
