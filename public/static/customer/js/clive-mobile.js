@@ -47,7 +47,6 @@ function webSocket(){
         var login_data = '{"type":"userInit", "uid": "' + config.uid + '", "name" : "' + config.name +
 		'", "avatar" : "' + config.avatar + '", "group" : ' + config.group + '}';
 
-		console.log(login_data);
 		socket.send(login_data);
 
         // 解锁
@@ -68,6 +67,10 @@ function webSocket(){
                 kf_name = data.data.kf_name;
                 showSystem({content: '客服 ' + data.data.kf_name + ' 为您服务'});
                 document.getElementById('title').innerHTML = '与 ' + kf_name + ' 交流中';
+
+                // 当前socket连接对应的客服是哪位
+                socket.kf_id = kf_id;
+
                 if(1 == commChat){
                     showChatLog();
                 }
@@ -92,7 +95,9 @@ function webSocket(){
                 break;
             // 监测聊天数据
             case 'chatMessage':
-                showMsg(data.data);
+                if(data.data.id == socket.kf_id){
+                    showMsg(data.data);
+                }
                 break;
             // 问候语
             case 'helloMessage':

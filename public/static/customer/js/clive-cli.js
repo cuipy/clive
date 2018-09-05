@@ -45,8 +45,12 @@ if(config != undefined && config.socket != undefined){
             case 'connect':
                 kf_id = data.data.kf_id;
                 kf_name = data.data.kf_name;
-                showSystem({content: '客服 ' + data.data.kf_name + ' 为您服务'});
+                showSystem({content: '客服： ' + data.data.kf_name + ' 为您服务'});
                 document.getElementById('title').innerHTML = '与 ' + kf_name + ' 交流中';
+
+                // 当前socket连接对应的客服是哪位
+                socket.kf_id = kf_id;
+
                 if(1 == commChat){
                     showChatLog();
                 }
@@ -76,7 +80,9 @@ if(config != undefined && config.socket != undefined){
                 break;
             // 监测聊天数据
             case 'chatMessage':
-                showMsg(data.data);
+                if(data.data.id == socket.kf_id){
+                    showMsg(data.data);
+                }
                 break;
             // 问候语
             case 'helloMessage':

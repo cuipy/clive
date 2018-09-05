@@ -192,7 +192,8 @@ class Events
             // 聊天
             case 'chatMessage':
 
-                $client = Gateway::getClientIdByUid($message['data']['to_id']);
+                $toUid= $message['data']['to_id'];
+                $client = Gateway::getClientIdByUid($toUid);
                 if(!empty($client)){
                     $chat_message = [
                         'message_type' => 'chatMessage',
@@ -204,7 +205,7 @@ class Events
                             'content' => htmlspecialchars($message['data']['content']),
                         ]
                     ];
-                    Gateway::sendToClient($client['0'], json_encode($chat_message));
+                    Gateway::sendToUid($toUid, json_encode($chat_message));
                     unset($chat_message);
 
                     // 聊天信息入库
