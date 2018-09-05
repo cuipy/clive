@@ -1,20 +1,19 @@
 <?php
 namespace app\service\controller;
-
+use think\Session;
 class Index extends Base
 {
     public function index()
     {
         // 客服信息
         $userInfo = db('users')->where('id', cookie('l_user_id'))->find();
-
+        Session::set('kefu_userid',$userInfo['id']);
         $this->assign([
             'uinfo' => $userInfo,
             'word' => db('words')->select(),
             'groups' => db('groups')->where('status', 1)->select(),
             'status' => db('kf_config')->where('id', 1)->find()
         ]);
-		
 		if(request()->isMobile()){
 			return $this->fetch('mobile');
         }
@@ -72,7 +71,35 @@ class Index extends Base
             return json(['code' => 1, 'data' => $logs, 'msg' => intval($param['page']), 'total' => ceil($total / $limit)]);
         }
     }
+    public function history(){
+        $kefu_userid=Session::get('kefu_userid');
+        $user_list=db('service_log')->where('kf_id',$kefu_userid)->column('user_id,user_name');
+        $this->assign('user_list',$user_list);
+        return $this->fetch();
+    }
+    public function history1(){
+        $kefu_userid=Session::get('kefu_userid');
+        $chat_loglist=db('chat_log')->where('to_id','KF' . $kefu_userid)->column('from_id');
+        $chat_loglist=array_unique($chat_loglist);
+        foreach ($chat_loglist as $key=>$value){
+            $logs[$key]['name']=db('service_log')->where('user_id',$value)->value('user_name');
+            $logs[$key]['att'] = db('chat_log')->where(
+                function($query)use($value, $kefu_userid){$query->where('from_id',$value)->where('to_id','KF' . $kefu_userid);
+            })->whereOr(
+                function ($query)use($value,$kefu_userid) {$query->where('to_id',$value)->where('from_id','KF' . $kefu_userid);})->order('id', 'desc')->select();
+//            $total[$key] =  db('chat_log')->where(array('from_id'=>$value,'to_id'=>'KF' . $kefu_userid))->whereOr(array('from_id'=>'KF' . $kefu_userid,'to_id'=>$value))->count();
+            foreach($logs[$key]['att'] as $ke=>$vo){
+                $logs[$key]['att'][$ke]['type'] = 'user';
+                $logs[$key]['att'][$ke]['time_line'] = date('Y-m-d H:i:s', $vo['time_line']);
 
+                if($vo['from_id'] == 'KF' . $kefu_userid){
+                    $logs[$key]['att'][$ke]['type'] = 'mine';
+                }
+            }
+        }
+        var_dump($logs);die;
+        return $this->fetch();
+    }
     // ip 定位
     public function getCity()
     {
