@@ -73,34 +73,40 @@ class Index extends Base
     }
     public function history(){
         $kefu_userid=Session::get('kefu_userid');
-        $user_list=db('service_log')->where('kf_id',$kefu_userid)->column('user_id,user_name');
+        $user_list=db('service_log')->where('kf_id',$kefu_userid)->column('user_id,user_name,user_ip,start_time');
         $this->assign('user_list',$user_list);
         return $this->fetch();
     }
-    public function history1(){
-        $kefu_userid=Session::get('kefu_userid');
-        $chat_loglist=db('chat_log')->where('to_id','KF' . $kefu_userid)->column('from_id');
-        $chat_loglist=array_unique($chat_loglist);
-        foreach ($chat_loglist as $key=>$value){
-            $logs[$key]['name']=db('service_log')->where('user_id',$value)->value('user_name');
-            $logs[$key]['att'] = db('chat_log')->where(
-                function($query)use($value, $kefu_userid){$query->where('from_id',$value)->where('to_id','KF' . $kefu_userid);
-            })->whereOr(
-                function ($query)use($value,$kefu_userid) {$query->where('to_id',$value)->where('from_id','KF' . $kefu_userid);})->order('id', 'desc')->select();
-//            $total[$key] =  db('chat_log')->where(array('from_id'=>$value,'to_id'=>'KF' . $kefu_userid))->whereOr(array('from_id'=>'KF' . $kefu_userid,'to_id'=>$value))->count();
-            foreach($logs[$key]['att'] as $ke=>$vo){
-                $logs[$key]['att'][$ke]['type'] = 'user';
-                $logs[$key]['att'][$ke]['time_line'] = date('Y-m-d H:i:s', $vo['time_line']);
 
-                if($vo['from_id'] == 'KF' . $kefu_userid){
-                    $logs[$key]['att'][$ke]['type'] = 'mine';
-                }
-            }
-        }
-        var_dump($logs);die;
-        return $this->fetch();
+    /**
+     * @return \think\response\Json
+     * 根据时间范围搜索
+     */
+    public function getdate()
+    {
+        //获取时间
+        $time = input('post.time');
+        //获得开始时间和结束时间
+        $start_time=substr($time,0,10);
+        $end_time=substr($time,-10);
+        //转化成时间戳
+        $start_time=strtotime($start_time);
+        $end_time=strtotime($end_time);
+        //传数据
+        $kefu_userid=Session::get('kefu_userid');
+        $user_list=db('service_log')->where('kf_id',$kefu_userid)->where('start_time','>',$start_time)->where('start_time','<',$end_time)->column('user_id,user_name,user_ip,start_time');
+        $user_list=array_values($user_list);
+        return json(['code' => 1, 'data' => $user_list, 'msg' => 'ok']);
     }
     // ip 定位
+    public function gettime()
+    {
+        $start_time = input('param.start_time');
+        $start_time =date('Y-m-d H:i:s', $start_time);
+        if($start_time){
+            return json(['code' => 1, 'data' => $start_time, 'msg' => 'ok']);
+        }
+    }
     public function getCity()
     {
         $ip = input('param.ip');

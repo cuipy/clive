@@ -6,13 +6,31 @@
     <title>clive客服工作台</title>
     <link rel="stylesheet" href="/static/service/js/layui/css/layui.css">
     <link rel="stylesheet" href="/static/service/css/clive.css">
+    <style>
+        .layui-nav-item {
+            height: 30px;
+            padding: 0px;
+            cursor: pointer;
+            border-bottom: 1px solid #fff;
+            line-height: 30px;
+        }
+        .user-name {
+            top: 0px;
+        }
+    </style>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo" style="color: white">clive客服【工作台】</div>
+        <div class="layui-logo" style="color: white">
+            <a href="index">
+                <button class="layui-btn layui-bg-blue">
+                    <i class="layui-icon">&#xe63a;</i> clive客服【工作台】
+                </button>
+            </a>
+        </div>
         <ul class="layui-nav layui-layout-right">
-            <li style="margin-top: 10%">
+            <li style="margin-top: 5%">
                 <a href="{url('index/history')}">
                     <button class="layui-btn layui-bg-green">
                         <i class="layui-icon">&#xe63a;</i> 聊天记录
@@ -27,30 +45,113 @@
         </ul>
     </div>
 
-    <div class="layui-side" style="background:#f2f2f2">
+    <div class="layui-side" style="background:#f2f2f2;">
         <div class="layui-side-scroll">
+            <div class="layui-nav-item" style="border: 1px solid #fff;height: 75px">
+                <label class="layui-form-label" style="width: 100px">时间范围搜索</label>
+                <input class="layui-input" id="test6" placeholder=" - " type="text" style="width: 198px;border:1px solid #C9C9C9">
+            </div>
             <blockquote class="layui-elem-quote layui-bg-cyan" style="color: white">历史记录</blockquote>
             <ul class="layui-unselect" id="user_list">
-
+                {volist name="user_list" id="vou"}
+                <li class="layui-nav-item" data-id="{$vou.user_id}" id="f-2bj41e7g7p41orp866knhtp6s4" data-name="{$vou.user_name}" data-avatar="http://wx2.sinaimg.cn/mw690/5db11ff4gy1flxmew7edlj203d03wt8n.jpg" data-ip="{$vou.user_ip}" data-start_time="{$vou.start_time}">
+                    <!--<img src="http://wx2.sinaimg.cn/mw690/5db11ff4gy1flxmew7edlj203d03wt8n.jpg">-->
+                    <span class="user-name">{$vou.user_name}</span>
+                    <span class="" style="margin-left:5px"></span>
+                </li>
+                {/volist}
             </ul>
         </div>
     </div>
 
-    <div class="layui-body" style="bottom:0">
+    <div style="width:300px;height:100%;float:left;margin-left:200px">
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">访客信息</li>
+            </ul>
+            <div class="layui-tab-content" style="height: 100px;">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form layui-form-pane">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">访客名</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="f-user" class="layui-input" readonly>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">IP</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="f-ip" class="layui-input" readonly>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">地区</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="f-area" class="layui-input" readonly>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">开始时间</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="f-time" class="layui-input" readonly>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div class="layui-body" style="bottom:0;left: 500px">
         <input type="hidden" id="active-user" data-avatar="" data-name="" data-id=""><!-- 当前对话的用户 -->
-        <div class="chat-left">
-            <div class="chat-box clive-chat-main">
+        <div class="chat-left" style="border: 1px solid #e2e2e2;">
+            <div class="chat-box clive-chat-main" style="height: 95%">
 
             </div>
         </div>
     </div>
-<!-- 转接提示层 -->
 </div>
 
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script src="/static/service/js/layui/layui.js"></script>
+<script src="/static/service/js/layui/jilu.js"></script>
 <script>
-
+    layui.use(['laydate','jquery','layer'], function(){
+        var laydate = layui.laydate;
+        var $ = layui.$ //重点处
+            ,layer = layui.layer;
+        laydate.render({
+            elem: '#test6'
+            ,range: true
+            ,done: function(value){
+                var result='';
+                $.ajax({
+                    type: 'POST',
+                    url: '/service/index/getdate',
+                    dataType: "json",
+                    data: {
+                        time:value
+                    },
+                    success:function (res) {
+                        console.log(res);
+                        res=res.data;
+                        for(var i=0;i<res.length;i++){
+                            result+=
+                                '<li class="layui-nav-item" data-id="'+res[i]['user_id']+'" id="'+res[i]['user_id']+'" data-name="'+res[i]['user_name']+'" data-avatar="http://wx2.sinaimg.cn/mw690/5db11ff4gy1flxmew7edlj203d03wt8n.jpg" data-ip="'+res[i]['user_ip']+'" data-start_time="'+res[i]['start_time']+'">'
+                                +'<span class="user-name">'+res[i]['user_name']+'</span>'
+                                +'<span class="" style="margin-left:5px"></span>'
+                                +'</li>'
+                        }
+                        $('#user_list').html(result);
+                        console.log(checkUser())
+                        checkUser();
+                    }
+                });
+            }
+        });
+    });
 </script>
+<script type="text/javascript" src="/static/service/js/functions.js"></script>
 </body>
 </html>
