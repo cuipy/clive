@@ -149,6 +149,15 @@ var loginOut = function(){
         }
     });
 };
+
+// 获取更多的的记录
+function getMore(obj){
+    $(obj).remove();
+
+    var page = $(obj).attr('data-page');
+    var uid = $(".layui-unselect").find('li').eq(0).data('id');
+    getChatLog(uid, page, 1);
+}
 function changeUserTab(obj) {
     obj.addClass('active').siblings().removeClass('active');
     wordBottom();
