@@ -56,7 +56,7 @@ $(function() {
                     id: uid,
                     url: dqurl,
                     name: '会员' + uid,
-                    avatar: '/uploads/20180914/6ae4336bf5e3e79804d9ded9771a8f0b.jpg',
+                    avatar: dqurl+'/uploads/20180914/6ae4336bf5e3e79804d9ded9771a8f0b.jpg',
                     group: group
                 });
             });
