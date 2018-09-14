@@ -359,6 +359,7 @@ function showChatLog(){
 
     var _html = '';
     var len = chatLog.length;
+    var defaultAvatar = "/static/customer/images/Smile.png";
     for(var i = 0; i < len; i++){
         var item = chatLog[i];
 
@@ -367,7 +368,7 @@ function showChatLog(){
             _html += '<li class="layim-chat-system"><span>' + item.time + '</span></li>'
             _html += '<li class="layim-chat-li layim-chat-mine">';
             _html += '<div class="layim-chat-user">';
-            _html += '<img src="' + item.avatar + '"><cite>'+ item.name + '</cite></div>';
+            _html += '<img src="' + item.avatar + '" onerror="this.src=\''+defaultAvatar+'\'"><cite>'+ item.name + '</cite></div>';
             _html += '<div class="layim-chat-text">' + item.content + ' </div></li>';
 
         }else if('other' == item.type){
@@ -375,7 +376,7 @@ function showChatLog(){
             _html += '<li class="layim-chat-system"><span>' + item.time + '</span></li>';
             _html += '<li class="layim-chat-li">';
             _html += '<div class="layim-chat-user">';
-            _html += '<img src="' + item.avatar + '"><cite>' + item.name + '</cite></div>';
+            _html += '<img src="' + item.avatar + '" onerror="this.src=\''+defaultAvatar+'\'"><cite>' + item.name + '</cite></div>';
             _html += '<div class="layim-chat-text">' + item.content + '</div></li>';
         }
     }
