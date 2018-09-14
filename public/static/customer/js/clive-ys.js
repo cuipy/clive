@@ -1,3 +1,4 @@
+
 $(function() {
     var url=dqurl+'/index/index/kfys_ajax';
     $.ajax({
@@ -56,7 +57,7 @@ $(function() {
                     id: uid,
                     url: dqurl,
                     name: '会员' + uid,
-                    avatar: 'http://wx2.sinaimg.cn/mw690/5db11ff4gy1flxmew7edlj203d03wt8n.jpg',
+                    avatar: 'http://clive.pingbuwang.com/uploads/20180914/6ae4336bf5e3e79804d9ded9771a8f0b.jpg',
                     group: group
                 });
             });
