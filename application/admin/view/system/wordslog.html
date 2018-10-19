@@ -45,8 +45,9 @@
                 <div class="example">
                     <table id="cusTable">
                         <thead>
-                        <th data-field="from_name">发送者</th>
-                        <th data-field="to_name">接受者</th>
+                        <th data-field="website_name">网站名称</th>
+                        <th data-field="from_name" data-formatter="fmt_from_name">发送者</th>
+                        <th data-field="to_name" data-formatter="fmt_to_name">接受者</th>
                         <th data-field="content">会话内容</th>
                         <th data-field="time_line">会话时间</th>
                         </thead>
@@ -105,6 +106,28 @@
                 layer.msg("加载数据失败");
             }
         });
+    }
+
+    function fmt_from_name(val,row,index){
+        var html = val;
+        if(row.from_type==1){
+           html =  "<span style='color:#f60'>"+val+"</span>"
+        }
+        if(row.from_type==2){
+            html =  "<span style='color:#690'>"+val+"</span>"
+        }
+        return html;
+    }
+
+    function fmt_to_name(val,row,index){
+        var html = val;
+        if(row.from_type==2){
+            html =  "<span style='color:#f60'>"+val+"</span>"
+        }
+        if(row.from_type==1){
+            html =  "<span style='color:#690'>"+val+"</span>"
+        }
+        return html;
     }
 
     $(document).ready(function () {

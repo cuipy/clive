@@ -84,6 +84,11 @@ class System extends Base
 
             $result = $temp->limit($offset, $limit)->order('id', 'desc')->select();
             foreach($result as $key=>$vo){
+                // 获取组所属网站名称
+                $website = db('website')->where('id',$vo['website_id'])->find();
+                if($website!=null){
+                    $result[$key]['website_name'] = $website['website_name'];
+                }
                 $result[$key]['time_line'] = date('Y-m-d H:i:s', $vo['time_line']);
             }
 
@@ -121,6 +126,12 @@ class System extends Base
 
             $result = $temp->limit($offset, $limit)->order('id', 'desc')->select();
             foreach($result as $key=>$vo){
+                // 获取组所属网站名称
+                $website = db('website')->where('id',$vo['website_id'])->find();
+                if($website!=null){
+                    $result[$key]['website_name'] = $website['website_name'];
+                }
+
                 $result[$key]['add_time'] = date('Y-m-d H:i:s', $vo['add_time']);
             }
 

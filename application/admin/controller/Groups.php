@@ -15,6 +15,12 @@ class Groups extends Base
 
             $result = db('groups')->select();
             foreach($result as $key=>$vo){
+
+                // 获取组所属网站名称
+                $website = db('website')->where('id',$vo['website_id'])->find();
+                if($website!=null){
+                    $result[$key]['website_name'] = $website['website_name'];
+                }
                 // 优化显示状态
                 if(1 == $vo['status']){
                     $result[$key]['status'] = '<span class="label label-primary">启用</span>';

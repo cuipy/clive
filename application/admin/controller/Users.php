@@ -15,6 +15,12 @@ class Users extends Base
 
             $result = db('users')->order('id', 'desc')->select();
             foreach($result as $key=>$vo){
+                // 获取组所属网站名称
+                $website = db('website')->where('id',$vo['website_id'])->find();
+                if($website!=null){
+                    $result[$key]['website_name'] = $website['website_name'];
+                }
+
                 // 优化显示头像
                 $result[$key]['user_avatar'] = '<img src="' . $vo['user_avatar'] . '" width="40px" height="40px">';
 
