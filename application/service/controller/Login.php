@@ -35,6 +35,7 @@ class Login extends Controller
             }
 
             // 设置session标识状态
+            cookie('l_website_id', $user['website_id'], config('save_time'));
             cookie('l_user_name', $user['user_name'], config('save_time'));
             cookie('l_user_id', $user['id'], config('save_time'));
             cookie('l_user_avatar', $user['user_avatar'], config('save_time'));
@@ -47,6 +48,7 @@ class Login extends Controller
 
     public function loginOut()
     {
+        cookie('l_website_id', null);
         cookie('l_user_name', null);
         cookie('l_user_id', null);
         cookie('l_user_avatar', null);

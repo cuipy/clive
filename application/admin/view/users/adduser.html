@@ -38,6 +38,15 @@
                             <label class="col-sm-3 control-label">选择分组：</label>
                             <input type="hidden" id="group_id" name="group_id"/>
                             <div class="input-group col-sm-4 layui-form">
+                                <select lay-verify="required" lay-filter="website">
+                                    <option value="">请选择网站</option>
+                                    {if !empty($websites)}
+                                    {foreach name="websites" item="vo"}
+                                    <option value="{$vo['id']}">{$vo['website_name']}</option>
+                                    {/foreach}
+                                    {/if}
+                                </select>
+
                                 <select lay-verify="required" lay-filter="group">
                                     <option value="">请选择分组</option>
                                     {if !empty($groups)}

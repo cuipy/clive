@@ -11,7 +11,7 @@ class Index extends Base
         $this->assign([
             'uinfo' => $userInfo,
             'word' => db('words')->select(),
-            'groups' => db('groups')->where('status', 1)->select(),
+            'groups' => db('groups')->where('status', 1)->where('website_id',$userInfo['website_id'])->select(),
             'status' => db('kf_config')->where('id', 1)->find()
         ]);
 		if(request()->isMobile()){

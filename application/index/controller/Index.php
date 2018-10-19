@@ -7,6 +7,7 @@ use think\Session;
 
 class Index extends Controller
 {
+
     public function index()
     {
         return $this->fetch();
@@ -51,9 +52,16 @@ class Index extends Controller
     {
         if(request()->isAjax()) {
             $mst = input('post.mst');
+            $key = input('post.key');
+
+            $website = db('website') -> where('website_key',$key)->find();
+            if($website==null){
+                return  json(array('code' => -1, 'msg' => 'key不合法，无法获得有效的注册'));
+            }
+
             if ($mst == 1) {
                 $groups =db('groups');
-                $groupslist = $groups->where(array('status' => 1))->select();
+                $groupslist = $groups->where(array('website_id'=> $website['id'],'status' => 1))->select();
             }
             return json(array('code' => 1, 'groupslist' => $groupslist));
         }

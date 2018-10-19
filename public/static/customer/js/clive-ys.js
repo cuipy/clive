@@ -4,7 +4,7 @@ $(function() {
         type: 'POST',
         url: url,
         data: {
-            mst: 1
+            mst: 1,key: kefu_key
         },
         dataType: 'json',
         success: function (data) {
@@ -67,5 +67,5 @@ $(function() {
 document.write(
     '<div id="service" style="width: 161px;height: 290px;position: fixed;top: 350px;right: 0px;z-index: 100;">'
     +'<ul style="list-style: none;margin: 0;padding: 0;" class="clive-ys">'
-    +'</ul>'
-    +'</div>');
+    +'</ul></div>');
+

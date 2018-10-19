@@ -66,6 +66,12 @@ class Users extends Base
 
             $param = input('post.');
             unset($param['file']); // 删除layui头像上传隐藏字段
+
+            // 检测头像
+            if(empty($param['nick_name'])){
+                return json(['code' => -1, 'data' => '', 'msg' => '请填写昵称']);
+            }
+
             // 检测头像
             if(empty($param['user_avatar'])){
                 return json(['code' => -1, 'data' => '', 'msg' => '请上传头像']);
@@ -93,6 +99,7 @@ class Users extends Base
         }
 
         $this->assign([
+            'websites' => db('website')->select(),
             'groups' => db('groups')->select(),
             'status' => config('kf_status')
         ]);
@@ -116,6 +123,11 @@ class Users extends Base
             $has = db('users')->where('user_name', $param['user_name'])->where('id', '<>', $param['id'])->find();
             if(!empty($has)){
                 return json(['code' => -1, 'data' => '', 'msg' => '该客服已经存在']);
+            }
+
+            // 检测头像
+            if(empty($param['nick_name'])){
+                unset($param['nick_name']);
             }
 
             // 修改用户头像
