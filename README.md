@@ -1,7 +1,25 @@
 ## clive
 clive客服系统，是采用thinkphp5+Gatewayworker开的高性能客服系统  
 
-***
+## clive 使用说明：
+* 在页面引入以下代码
+<script src='https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js'></script>
+<script src="http://clive.pingbuwang.com/index/script/kefu?key=***&container=***&icon_width=***&v=1.02"></script>
+
+* 引入字段说明：
+> key: 每个网站都有一个唯一的key，由clive客服管理员提供
+
+> container：如果右侧边栏加载，则不需要该字段；
+>> 如果需要在某标签内显示客服图标，则container设置为容器标签的选择器，
+>> 如：<div id="abc"></div>  则 选择器为 #abc，需要做url编码处理，设置 container=%23abc
+>> %23 是 # 的 urlEncode的值
+>> 如果container不为空，默认不显示文字。
+
+> icon_with: 图标的宽度
+
+> text_width: 文字的宽度
+ 
+
 ## clive部署方式
 QQ: 12160952     
 * PHP要求：5.6+    

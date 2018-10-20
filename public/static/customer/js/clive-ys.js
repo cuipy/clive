@@ -10,27 +10,34 @@ $(function() {
         success: function (data) {
             if (data.code == 1) {
                 var groupslist = data.groupslist;
-                var ab = '<div id="kefu_service" style="width: 161px;height: 290px;position: fixed;top: 350px;right: 0px;z-index: 100;">'
-                    +'<ul style="list-style: none;margin: 0;padding: 0;">'
 
-                for (var i = 0; i < groupslist.length; i++) {
-                    ab +=
-                        '<li style="width: 161px;height: 60px;">'
-                        + '<a href="javascript:;" style="height: 49px;float: right;display: block;min-width: 47px;max-width: 161px;color: #007bc4;text-decoration: none;cursor: pointer;">'
-                        + '<div class="hides" style="width:161px;display:none;cursor: pointer;">'
-                        + '<div class="hides " style="margin-right: -143px;cursor: pointer;width: 47px;height: 49px;float: left;">'
-                        + '<img src=' + dqurl + '/static/demo/images/ll04.png style="float: right;border: 0;cursor: pointer;">'
-                        + '</div>'
-                        + '<div class="hides buy-1" data-group="' + groupslist[i]['id'] + '" style="margin-right: -143px;cursor: pointer;width: 112px;background-color: #A7D2A9;height: 47px;margin-left: 47px;border: 1px solid #8BC48D;text-align: center;line-height: 47px;">'
-                        + '<span style="color:#FFF;font-size:13px">' + groupslist[i]['name'] + '</span>'
-                        + '</div>'
-                        + '</div>'
-                        + '<img src=' + dqurl + '/static/demo/images/l04.png width="47" height="49" class="shows" style="float: right;border: 0;cursor: pointer;"/>'
-                        + '</a>'
-                        + '</li>'
+                if(kefu_container==''||$(kefu_container)[0]==null){
+                    var ab = '<div id="kefu_service" style="position: fixed;top: 350px;right: 0px;z-index: 100;">'
+                        +'<ul style="list-style: none;margin: 0;padding: 0;">'
+
+                    for (var i = 0; i < groupslist.length; i++) {
+                        ab +=
+                            '<li style="width: 161px;height: 60px;">'
+                            + '<a href="javascript:;" style="height: 49px;float: right;display: block;min-width: 47px;max-width: 161px;color: #007bc4;text-decoration: none;cursor: pointer;">'
+                            + '<div class="hides" style="width:161px;display:none;cursor: pointer;">'
+                            + '<div class="hides " style="margin-right: -143px;cursor: pointer;width: 47px;height: 49px;float: left;">'
+                            + '<img src=' + dqurl + '/static/demo/images/ll04.png style="float: right;border: 0;cursor: pointer;">'
+                            + '</div>'
+                            + '<div class="hides buy-1" data-group="' + groupslist[i]['id'] + '" style="margin-right: -143px;cursor: pointer;width: 112px;background-color: #A7D2A9;height: 47px;margin-left: 47px;border: 1px solid #8BC48D;text-align: center;line-height: 47px;">'
+                            + '<span style="color:#FFF;font-size:13px">' + groupslist[i]['name'] + '</span>'
+                            + '</div>'
+                            + '</div>'
+                            + '<img src=' + dqurl + '/static/demo/images/l04.png width="47" height="49" class="shows" style="float: right;border: 0;cursor: pointer;"/>'
+                            + '</a>'
+                            + '</li>'
+                    }
+                    ab+='</ul></div>';
+
+                    $(document.body).append(ab);
+                }else{
+                    $(kefu_container).append(ab);
                 }
-                ab+='</ul></div>';
-                $(document.body).append(ab);
+
             }
             $("#kefu_service a").hover(function() {
                 if ($(this).prop("className") == "weixin_area") {

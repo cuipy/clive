@@ -55,7 +55,7 @@
                                     {/if}
                                 </select>
 
-                                <select lay-verify="required" lay-filter="group">
+                                <select id="sltGroups" lay-verify="required" lay-filter="group">
                                     <option value="">请选择分组</option>
                                     {if !empty($groups)}
                                     {foreach name="groups" item="vo"}
