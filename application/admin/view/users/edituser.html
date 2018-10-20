@@ -23,7 +23,7 @@
                     <form class="form-horizontal m-t layui-form" id="commentForm" method="post" action="{:url('users/edituser')}">
                         <input type="hidden" value="{$info['id']}" name="id"/>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">客服名称：</label>
+                            <label class="col-sm-3 control-label">客服账号：</label>
                             <div class="input-group col-sm-4">
                                 <input id="username" type="text" class="form-control" name="user_name" required="" aria-required="true" value="{$info['user_name']}">
                             </div>
@@ -32,6 +32,12 @@
                             <label class="col-sm-3 control-label">登录密码：</label>
                             <div class="input-group col-sm-4">
                                 <input id="password" type="text" class="form-control" name="user_pwd" placeholder="重新输入则为修改">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">客服昵称：</label>
+                            <div class="input-group col-sm-4">
+                                <input id="nickname" type="text" class="form-control" name="nick_name" required="" aria-required="true" value="{$info['nick_name']}">
                             </div>
                         </div>
                         <div class="form-group">

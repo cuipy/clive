@@ -23,7 +23,7 @@
                     <form class="form-horizontal m-t layui-form" id="commentForm" method="post" action="{:url('users/adduser')}">
 
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">客服名称：</label>
+                            <label class="col-sm-3 control-label">客服账号：</label>
                             <div class="input-group col-sm-4">
                                 <input id="username" type="text" class="form-control" name="user_name" required="" aria-required="true">
                             </div>
@@ -35,7 +35,15 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-3 control-label">客服昵称：</label>
+                            <div class="input-group col-sm-4">
+                                <input id="nickname" type="text" class="form-control" name="nick_name" required="" aria-required="true">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="col-sm-3 control-label">选择分组：</label>
+                            <input type="hidden" id="website_id" name="website_id"/>
                             <input type="hidden" id="group_id" name="group_id"/>
                             <div class="input-group col-sm-4 layui-form">
                                 <select lay-verify="required" lay-filter="website">
@@ -125,6 +133,8 @@
 
         form.on('select(group)', function(value){
             $("#group_id").val(value.value);
+        }).on('select(website)', function(value){
+            $("#website_id").val(value.value);
         });
     });
 

@@ -10,7 +10,9 @@ $(function() {
         success: function (data) {
             if (data.code == 1) {
                 var groupslist = data.groupslist;
-                var ab = '';
+                var ab = '<div id="kefu_service" style="width: 161px;height: 290px;position: fixed;top: 350px;right: 0px;z-index: 100;">'
+                    +'<ul style="list-style: none;margin: 0;padding: 0;">'
+
                 for (var i = 0; i < groupslist.length; i++) {
                     ab +=
                         '<li style="width: 161px;height: 60px;">'
@@ -27,9 +29,10 @@ $(function() {
                         + '</a>'
                         + '</li>'
                 }
-                $('.clive-ys').append(ab);
+                ab+='</ul></div>';
+                $(document.body).append(ab);
             }
-            $("#service a").hover(function() {
+            $("#kefu_service a").hover(function() {
                 if ($(this).prop("className") == "weixin_area") {
                     $(this).children("img.hides").show();
                 } else {
@@ -50,7 +53,7 @@ $(function() {
             var ws = new clive();
             var uid = parseInt(Math.random() * 40) + 1;
 
-            $(".buy-1").click(function(){
+            $("#kefu_service .buy-1").click(function(){
                 var group = $(this).attr('data-group');
                 ws.init({
                     id: uid,
@@ -64,8 +67,5 @@ $(function() {
     })
 
 });
-document.write(
-    '<div id="service" style="width: 161px;height: 290px;position: fixed;top: 350px;right: 0px;z-index: 100;">'
-    +'<ul style="list-style: none;margin: 0;padding: 0;" class="clive-ys">'
-    +'</ul></div>');
+
 

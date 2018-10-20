@@ -67,7 +67,11 @@ class Users extends Base
             $param = input('post.');
             unset($param['file']); // 删除layui头像上传隐藏字段
 
-            // 检测头像
+            if(empty($param['user_name'])){
+                return json(['code' => -1, 'data' => '', 'msg' => '请填写登录账号']);
+            }
+
+            // 检测昵称
             if(empty($param['nick_name'])){
                 return json(['code' => -1, 'data' => '', 'msg' => '请填写昵称']);
             }
@@ -77,6 +81,9 @@ class Users extends Base
                 return json(['code' => -1, 'data' => '', 'msg' => '请上传头像']);
             }
 
+            if(empty($param['website_id'])){
+                return json(['code' => -8, 'data' => '', 'msg' => '请选择网站']);
+            }
             if(empty($param['group_id'])){
                 return json(['code' => -4, 'data' => '', 'msg' => '请选择分组']);
             }
@@ -125,7 +132,7 @@ class Users extends Base
                 return json(['code' => -1, 'data' => '', 'msg' => '该客服已经存在']);
             }
 
-            // 检测头像
+            // 检测昵称
             if(empty($param['nick_name'])){
                 unset($param['nick_name']);
             }
