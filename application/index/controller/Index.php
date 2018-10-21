@@ -16,21 +16,12 @@ class Index extends Controller
     // pc客户端
     public function chat()
     {
-        //把游客的id存放到session里面
-        if(Session::has('visitor_id')){
-            $visitor_id=session::get('visitor_id');
-            $visitor_name=session::get('visitor_name');
-        }else{
-            $visitor_id=session_id();
-            $visitor_name='会员'.substr($visitor_id, -3);
-            Session::set('visitor_id',$visitor_id);
-            Session::set('visitor_name',$visitor_name);
-        }
+
         // 跳转到移动端
         if(request()->isMobile()){
             $param = http_build_query([
-                'id' => $visitor_id,
-                'name' => $visitor_name,
+                'id' => session('kf_uid'),
+                'name' => session('kf_uname'),
                 'group' => input('param.group'),
                 'avatar' => input('param.avatar')
             ]);
@@ -40,35 +31,13 @@ class Index extends Controller
         $this->assign([
             'leave_status'=>$leave_status,
             'socket' => config('socket'),
-            'id' => $visitor_id,
-            'name' => $visitor_name,
+            'id' => session('kf_uid'),
+            'name' => session('kf_uname'),
             'group' => input('param.group'),
             'avatar' => input('param.avatar'),
         ]);
 
         return $this->fetch();
-    }
-    public function kfys_ajax()
-    {
-header("Access-Control-Allow-Origin:*");
-header("Access-Control-Allow-Methods:POST, GET, OPTIONS, PUT, DELETE");
-header('Access-Control-Allow-Headers:x-requested-with,content-type');
-
-        if(request()->isAjax()) {
-            $mst = input('post.mst');
-            $key = input('post.key');
-
-            $website = db('website') -> where('website_key',$key)->find();
-            if($website==null){
-                return  json(array('code' => -1, 'msg' => 'key不合法，无法获得有效的注册'));
-            }
-
-            if ($mst == 1) {
-                $groups =db('groups');
-                $groupslist = $groups->where(array('website_id'=> $website['id'],'status' => 1))->select();
-            }
-            return json(array('code' => 1, 'groupslist' => $groupslist));
-        }
     }
 
     // 移动客户端

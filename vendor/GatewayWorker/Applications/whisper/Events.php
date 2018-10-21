@@ -17,7 +17,7 @@
  * 如果发现业务卡死，可以将下面declare打开（去掉//注释），并执行php start.php reload
  * 然后观察一段时间workerman.log看是否有process_timeout异常
  */
-//declare(ticks=1);
+declare(ticks=1);
 use \GatewayWorker\Lib\Gateway;
 use Workerman\Lib\Timer;
 
