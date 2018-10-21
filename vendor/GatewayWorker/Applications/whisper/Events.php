@@ -151,6 +151,8 @@ class Events
                     $arr =['uid'=>$message['uid'],'uname'=>$message['name'],'avatar'=>$message['avatar'],
                         'uip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '' ];
                     self::$db->insert('cl_customer')->cols($arr)->query();
+                }else{
+
                 }
 
                 $userList = self::$global->userList;
@@ -350,6 +352,8 @@ class Events
      */
     public static function onClose($client_id)
     {
+
+
         $isServiceUserOut = false;
         // 将会员服务信息，从客服的服务列表中移除
         $old = $kfList = self::$global->kfList;
@@ -421,8 +425,10 @@ class Events
             $old = $userList = self::$global->userList;
             foreach(self::$global->userList as $key=>$vo){
                 if($client_id == $vo['client_id']){
-
                     $isServiceUserOut = true;
+
+                    $uid = $vo['id'];
+                    self::$db->query("update cl_customer set close_time=now() where uid='".$uid."'");
 
                     unset($userList[$key]);
                     break;
