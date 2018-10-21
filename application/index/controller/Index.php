@@ -50,6 +50,10 @@ class Index extends Controller
     }
     public function kfys_ajax()
     {
+header("Access-Control-Allow-Origin:*");
+header("Access-Control-Allow-Methods:POST, GET, OPTIONS, PUT, DELETE");
+header('Access-Control-Allow-Headers:x-requested-with,content-type');
+
         if(request()->isAjax()) {
             $mst = input('post.mst');
             $key = input('post.key');

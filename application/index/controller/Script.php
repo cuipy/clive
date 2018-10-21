@@ -8,9 +8,6 @@ use think\Session;
 class Script extends Controller
 {
 
-    /**
-     * @route('kefu.js')
-     */
     public function kefu()
     {
         $key = input('get.key');
@@ -18,6 +15,14 @@ class Script extends Controller
         $container = input('get.container');
         $icon_width = input('get.icon_width');
         $text_width = input('get.text_width');
+
+$website=db('website')->where('website_key',$key)->find();
+if($website==null){
+return;
+}
+$groups = db('groups')->where('website_id',$website['id'])->select();
+
+$jgroups = json_encode($groups);
 
         print <<<EOT
 var dqurl="http://clive.pingbuwang.com";
@@ -38,17 +43,7 @@ document.write('<script src="'+dqurl+'/static/customer/js/layer/layer.js"></scri
 document.write('<script src="'+dqurl+'/static/customer/js/clive-tool.js"></script>');
 
 $(function() {
-    var url=dqurl+'/index/index/kfys_ajax';
-    $.ajax({
-        type: 'POST',
-        url: url,
-        data: {
-            mst: 1,key: kefu_key
-        },
-        dataType: 'json',
-        success: function (data) {
-            if (data.code == 1) {
-                var groupslist = data.groupslist;
+                var groupslist  = $jgroups;
 
                 
                     var ab = '<div id="kefu_service">'
@@ -57,11 +52,11 @@ $(function() {
                     for (var i = 0; i < groupslist.length; i++) {
                         ab +=
                             '<li title="'+groupslist[i]['name']+'">'
-                            + '<a class="kefu_box" href="javascript:;">'
+                            + '<a class="kefu_box" href="javascript:;" data-group="'+groupslist[i]['id']+'">'
                             + '<div class="kefu_img">'
                             + '<img src="' + dqurl + '/static/demo/images/l04.png">'
                             + '</div>'
-                            + '<div class="kefu_text" data-group="' + groupslist[i]['id'] + '">'
+                            + '<div class="kefu_text" >'
                             + '<span >' + groupslist[i]['name'] + '</span>'
                             + '</div>'
                             + '</a>'
@@ -74,7 +69,7 @@ $(function() {
                     $(kefu_container).append(ab);
                 }
 
-            }
+            
            
             var ws = new clive();
             var uid = parseInt(Math.random() * 40) + 1;
@@ -89,8 +84,8 @@ $(function() {
                     group: group
                 });
             });
-        }
-    })
+        
+    
 
 });
 
