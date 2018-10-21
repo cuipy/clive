@@ -145,6 +145,14 @@ class Events
             // 顾客初始化
             case 'userInit';
 
+            // 用户第一次登陆的时候，记录用户的信息
+                $arrHasUid = self::$db->query("select count(1) cnt from cl_customer where uid = '".$message['uid']."'");
+                if($arrHasUid[0]['cnt']==0){
+                    $arr =['uid'=>$message['uid'],'uname'=>$message['name'],'avatar'=>$message['avatar'],
+                        'uip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '' ];
+                    self::$db->insert('cl_customer')->cols($arr)->query();
+                }
+
                 $userList = self::$global->userList;
                 // 如果该顾客未在内存中记录则记录
                 if(!array_key_exists($message['uid'], $userList)){

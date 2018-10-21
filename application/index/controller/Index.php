@@ -31,8 +31,8 @@ class Index extends Controller
         $this->assign([
             'leave_status'=>$leave_status,
             'socket' => config('socket'),
-            'id' => session('kf_uid'),
-            'name' => session('kf_uname'),
+            'id' => cookie('kf_uid'),
+            'name' => cookie('kf_uname'),
             'group' => input('param.group'),
             'avatar' => input('param.avatar'),
         ]);

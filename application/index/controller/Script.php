@@ -10,16 +10,17 @@ class Script extends Controller
 
     public function kefu()
     {
-        if(session('kf_uid')==null){
-            session('kf_uid',session_id());
-            $ucnt1 = db('service_log')->count();
+        if(cookie('kf_uid')==null){
+            session('kf_uid');
+            cookie('kf_uid',session_id(),3600*24*7);
+            $ucnt1 = db('customer')->count()+1;
             $ucnt=sprintf("%06d", $ucnt1);
 
             // 获得用户ip
             $user_ip = request()->ip(0,true);
             // 获得用户所在城市
             $user_city = $this->getCity($user_ip);
-            session('kf_uname',$user_city.$ucnt);
+            cookie('kf_uname',$user_city.$ucnt,3600*24*7);
         }
         $key = input('get.key');
         // 空，或者元素选择器，# = %23
@@ -42,8 +43,8 @@ class Script extends Controller
             'icon_width' => $icon_width,
             'text_width' => $text_width,
             'jgroups' => $jgroups,
-            'uid' => session('kf_uid'),
-            'uname' => session('kf_uname'),
+            'uid' => cookie('kf_uid'),
+            'uname' => cookie('kf_uname'),
         ]);
 
         return $this->fetch();
