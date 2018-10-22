@@ -10,6 +10,7 @@ class Script extends Controller
 
     public function kefu()
     {
+        // 客服的客户端用户id
         if(cookie('kf_uid')==null){
             session('kf_uid');
             cookie('kf_uid',session_id(),3600*24*7);

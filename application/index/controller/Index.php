@@ -20,8 +20,8 @@ class Index extends Controller
         // 跳转到移动端
         if(request()->isMobile()){
             $param = http_build_query([
-                'id' => session('kf_uid'),
-                'name' => session('kf_uname'),
+                'id' => cookie('kf_uid'),
+                'name' => cookie('kf_uname'),
                 'group' => input('param.group'),
                 'avatar' => input('param.avatar')
             ]);
