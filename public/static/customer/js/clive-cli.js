@@ -14,7 +14,7 @@ var commChat = 1;
 if(config != undefined && config.socket != undefined){
 
     // 创建一个Socket实例
-    var socket = new WebSocket('ws://' + config.socket);
+    var socket = new WebSocket('wss://' + config.socket);
 
     // 加锁
     lockTextarea();
