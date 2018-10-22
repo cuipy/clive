@@ -218,8 +218,28 @@ class Events
                     Gateway::sendToUid($toUid, json_encode($chat_message));
                     unset($chat_message);
 
+                    // 判断从1客服发出还是从2客户发出
+                    $fromType=0;
+                    $kfId = null;
+                    if(strpos($message['data']['from_id'],'KF')===0){
+                        $fromType=1;
+                        $kfId= intval(ltrim($message['data']['from_id'], 'KF'));
+                    }else{
+                        $fromType=2;
+                        $kfId= intval(ltrim($message['data']['to_id'], 'KF'));
+                    }
+
+                    $website_id = null;
+                    $website = self::$db->query("select website_id from cl_users where id=".$kfId);
+                    if(count($website)>0){
+                        $website_id = $website[0]['website_id'];
+                    }
+
                     // 聊天信息入库
                     $serviceLog = [
+                        'website_id' => $website_id,
+                        'from_type' => $fromType,
+                        'kf_id' => $kfId,
                         'from_id' => $message['data']['from_id'],
                         'from_name' => $message['data']['from_name'],
                         'from_avatar' => $message['data']['from_avatar'],
@@ -632,6 +652,13 @@ class Events
             Gateway::sendToClient($res['data']['2'], json_encode($noticeKf));
             unset($noticeKf);
 
+            $kfId= intval(ltrim($res['data']['0'], 'KF'));
+            $website=self::$db->query('select website_id from cl_users where id='.$kfId);
+            $websiteId=null;
+            if(count($website)>0){
+                $websiteId=$website[0]['website_id'];
+            }
+
             // 服务信息入库
             $serviceLog = [
                 'user_id' => $res['data']['3']['id'],
@@ -639,7 +666,8 @@ class Events
                 'user_name' => $res['data']['3']['name'],
                 'user_ip' => $res['data']['3']['ip'],
                 'user_avatar' => $res['data']['3']['avatar'],
-                'kf_id' => intval(ltrim($res['data']['0'], 'KF')),
+                'website_id' => $websiteId,
+                'kf_id' => $kfId,
                 'start_time' => time(),
                 'group_id' => $group,
                 'end_time' => 0
