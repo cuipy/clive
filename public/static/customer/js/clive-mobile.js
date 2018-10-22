@@ -26,7 +26,7 @@ if(config != undefined && config.socket != undefined){
 function webSocket(){ 
 
 	// 创建一个Socket实例
-    socket = new WebSocket('ws://' + config.socket);
+    socket = new WebSocket('wss://' + config.socket);
 
     // 加锁
     lockInput();
