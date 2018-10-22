@@ -73,7 +73,7 @@ class Index extends Base
     }
     public function history(){
         $kefu_userid=Session::get('kefu_userid');
-        $user_list=db('service_log')->where('kf_id',$kefu_userid)->order('start_time','desc')->column('user_id,user_name,user_ip,start_time');
+        $user_list=db('service_log')->where('kf_id',$kefu_userid)->order('start_time','desc')->limit(100)->column('user_id,user_name,user_ip,start_time');
         $this->assign('user_list',$user_list);
         return $this->fetch();
     }
@@ -103,7 +103,7 @@ class Index extends Base
         if($customer_name!=null&&$customer_name!=''){
             $user_list = $user_list->whereLike('user_name','%'.$customer_name.'%');
         }
-        $user_list = $user_list->order('start_time','desc') ->column('user_id,user_name,user_ip,start_time');
+        $user_list = $user_list->order('start_time','desc')->limit(100) ->column('user_id,user_name,user_ip,start_time');
         $user_list=array_values($user_list);
         return json(['code' => 1, 'data' => $user_list, 'msg' => 'ok,endTime:'.$start_time1]);
     }
