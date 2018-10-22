@@ -16,12 +16,12 @@ class Index extends Controller
     // pc客户端
     public function chat()
     {
-
+        $this->initCustomerCookie();
         // 跳转到移动端
         if(request()->isMobile()){
             $param = http_build_query([
-                'id' => cookie('kf_uid'),
-                'name' => cookie('kf_uname'),
+                'id' => cookie('kf_customer_id'),
+                'name' => cookie('kf_customer_name'),
                 'group' => input('param.group'),
                 'avatar' => input('param.avatar')
             ]);
@@ -31,8 +31,8 @@ class Index extends Controller
         $this->assign([
             'leave_status'=>$leave_status,
             'socket' => config('socket'),
-            'id' => cookie('kf_uid'),
-            'name' => cookie('kf_uname'),
+            'id' => cookie('kf_customer_id'),
+            'name' => cookie('kf_customer_name'),
             'group' => input('param.group'),
             'avatar' => input('param.avatar'),
             'uip' => request()->ip(0,true),
@@ -44,10 +44,12 @@ class Index extends Controller
     // 移动客户端
     public function mobile()
     {
+        $this->initCustomerCookie();
+
         $this->assign([
             'socket' => config('socket'),
-            'id' => cookie('kf_uid'),
-            'name' => cookie('kf_uname'),
+            'id' => cookie('kf_customer_id'),
+            'name' => cookie('kf_customer_name'),
             'group' => input('param.group'),
             'avatar' => input('param.avatar'),
             'uip' => request()->ip(0,true),
@@ -77,4 +79,36 @@ class Index extends Controller
             return json(['code' => 1, 'data' => '', 'msg' => '留言成功']);
         }
     }
+
+    private function initCustomerCookie(){
+        // 客服的客户端用户id
+        if(cookie('kf_customer_id')==null||cookie('kf_customer_id')==''){
+            session('kf_customer_id');
+            cookie('kf_customer_id',session_id(),3600*24*7);
+            $ucnt1 = db('customer')->count()+1;
+            $ucnt=sprintf("%06d", $ucnt1);
+
+            // 获得用户ip
+            $user_ip = request()->ip(0,true);
+            // 获得用户所在城市
+            $user_city = $this->getCity($user_ip);
+            cookie('kf_customer_name',$user_city.$ucnt,3600*24*7);
+        }
+    }
+
+    private function getCity($ip)
+    {
+        $ip2region = new \Ip2Region();
+        $info = $ip2region->btreeSearch($ip);
+
+        $city = explode('|', $info['region']);
+
+        if(0 != $info['city_id']){
+            return   $city['3'];
+        }else{
+
+            return  $city['0'];
+        }
+    }
+
 }
