@@ -35,6 +35,7 @@ class Index extends Controller
             'name' => cookie('kf_uname'),
             'group' => input('param.group'),
             'avatar' => input('param.avatar'),
+            'uip' => request()->ip(0,true),
         ]);
 
         return $this->fetch();
@@ -49,6 +50,7 @@ class Index extends Controller
             'name' => input('param.name'),
             'group' => input('param.group'),
             'avatar' => input('param.avatar'),
+            'uip' => request()->ip(0,true),
         ]);
 
         return $this->fetch();

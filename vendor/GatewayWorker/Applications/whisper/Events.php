@@ -149,7 +149,7 @@ class Events
                 $arrHasUid = self::$db->query("select count(1) cnt from cl_customer where uid = '".$message['uid']."'");
                 if($arrHasUid[0]['cnt']==0){
                     $arr =['uid'=>$message['uid'],'uname'=>$message['name'],'avatar'=>$message['avatar'],
-                        'uip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '' ];
+                        'uip' => $message['uip'] ];
                     self::$db->insert('cl_customer')->cols($arr)->query();
                 }else{
 
@@ -164,7 +164,7 @@ class Events
                             'id' => $message['uid'],
                             'name' => $message['name'],
                             'avatar' => $message['avatar'],
-                            'ip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '',
+                            'ip' =>  $message['uip'],
                             'group' => $message['group'],
                             'client_id' => $client_id
                         ];
@@ -827,4 +827,19 @@ class Events
         }
         unset($kfList, $nowTalking, $inQueue, $onlineKf, $key, $key2, $param);
     }
+
+
+    static function getClientIp(){
+        if(getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
+            $ip = getenv('HTTP_CLIENT_IP');
+        } elseif(getenv('HTTP_X_FORWARDED_FOR') && strcasecmp(getenv('HTTP_X_FORWARDED_FOR'), 'unknown')) {
+            $ip = getenv('HTTP_X_FORWARDED_FOR');
+        } elseif(getenv('REMOTE_ADDR') && strcasecmp(getenv('REMOTE_ADDR'), 'unknown')) {
+            $ip = getenv('REMOTE_ADDR');
+        } elseif(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], 'unknown')) {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return preg_match ( '/[\d\.]{7,15}/', $ip, $matches ) ? $matches [0] : '';;
+    }
+
 }
