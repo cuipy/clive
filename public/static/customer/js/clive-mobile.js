@@ -26,7 +26,7 @@ if(config != undefined && config.socket != undefined){
 function webSocket(){ 
 
 	// 创建一个Socket实例
-    socket = new WebSocket('ws://' + config.socket);
+    socket = new WebSocket('wss://' + config.socket);
 
     // 加锁
     lockInput();
@@ -45,7 +45,7 @@ function webSocket(){
   
         // 登录
         var login_data = '{"type":"userInit", "uid": "' + config.uid + '", "name" : "' + config.name +
-		'", "avatar" : "' + config.avatar + '", "group" : ' + config.group + '}';
+		'", "avatar" : "' + config.avatar + '", "group" : ' + config.group + ',"uip":"'+config.uip+'" }';
 
 		socket.send(login_data);
 

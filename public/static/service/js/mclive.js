@@ -6,7 +6,7 @@ var uinfo = {
 };
 
 // 创建一个Socket实例
-var socket = new WebSocket('ws://' + socket_server);
+var socket = new WebSocket('wss://' + socket_server);
 
 // 打开Socket 
 socket.onopen = function (res) {

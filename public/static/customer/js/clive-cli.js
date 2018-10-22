@@ -14,7 +14,7 @@ var commChat = 1;
 if(config != undefined && config.socket != undefined){
 
     // 创建一个Socket实例
-    var socket = new WebSocket('ws://' + config.socket);
+    var socket = new WebSocket('wss://' + config.socket);
 
     // 加锁
     lockTextarea();
@@ -26,7 +26,7 @@ if(config != undefined && config.socket != undefined){
         console.log('握手成功');
         // 登录
         var login_data = '{"type":"userInit", "uid": "' + config.uid + '", "name" : "' + config.name +
-            '", "avatar" : "' + config.avatar + '", "group" : ' + config.group + '}';
+            '", "avatar" : "' + config.avatar + '", "group" : ' + config.group + ',"uip":"'+config.uip+'" }';
         socket.send(login_data);
 
         // 解锁

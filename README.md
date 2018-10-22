@@ -4,7 +4,7 @@ clive客服系统，是采用thinkphp5+Gatewayworker开的高性能客服系统
 ## clive 使用说明：
 * 在页面引入以下代码
 <script src='https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js'></script>
-<script src="http://clive.pingbuwang.com/index/script/kefu?key=***&container=***&icon_width=***&v=1.02"></script>
+<script src="//clive.pingbuwang.com/index/script/kefu?key=***&container=***&icon_width=***&v=1.02"></script>
 
 * 引入字段说明：
 > key: 每个网站都有一个唯一的key，由clive客服管理员提供

@@ -21,7 +21,7 @@ return [
     'salt' => '~NickBai!@#',
 
     // socket server
-    'socket' => 'zl.dakanggou.com:8282',
+    'socket' => 'clive.pingbuwang.com:8283',
 
     // 管理员登录时间
     'save_time' => 86400,
