@@ -46,8 +46,8 @@ class Index extends Controller
     {
         $this->assign([
             'socket' => config('socket'),
-            'id' => input('param.id'),
-            'name' => input('param.name'),
+            'id' => cookie('kf_uid'),
+            'name' => cookie('kf_uname'),
             'group' => input('param.group'),
             'avatar' => input('param.avatar'),
             'uip' => request()->ip(0,true),
