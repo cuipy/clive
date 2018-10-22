@@ -45,7 +45,7 @@ function webSocket(){
   
         // 登录
         var login_data = '{"type":"userInit", "uid": "' + config.uid + '", "name" : "' + config.name +
-		'", "avatar" : "' + config.avatar + '", "group" : ' + config.group + '}';
+		'", "avatar" : "' + config.avatar + '", "group" : ' + config.group + ',"uip":"'+config.uip+'" }';
 
 		socket.send(login_data);
 
