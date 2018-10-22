@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>clive客服工作台</title>
     <link rel="stylesheet" href="/static/service/js/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/service/css/clive.css">
+    <link rel="stylesheet" href="/static/service/css/clive.css?v=2">
     <style>
         .layui-nav-item {
             height: 30px;
@@ -48,8 +48,8 @@
     <div class="layui-side" style="background:#f2f2f2;">
         <div class="layui-side-scroll">
             <div class="layui-nav-item" style="border: 1px solid #fff;height: 75px">
-                <label class="layui-form-label" style="width: 100px">时间范围搜索</label>
-                <input class="layui-input" id="test6" placeholder=" - " type="text" style="width: 198px;border:1px solid #C9C9C9">
+                <input class="layui-input" id="txtServiceTime" placeholder="时间范围搜索" type="text" style="width: 198px;border:1px solid #C9C9C9">
+                <input class="layui-input" onchange="chgCustomerName()" id="txtCustomerName" placeholder="会员名检索" type="text" style="width: 198px;border:1px solid #C9C9C9">
             </div>
             <blockquote class="layui-elem-quote layui-bg-cyan" style="color: white">历史记录</blockquote>
             <ul class="layui-unselect" id="user_list">
@@ -122,35 +122,41 @@
         var $ = layui.$ //重点处
             ,layer = layui.layer;
         laydate.render({
-            elem: '#test6'
+            elem: '#txtServiceTime'
             ,range: true
             ,done: function(value){
-                var result='';
-                $.ajax({
-                    type: 'POST',
-                    url: '/service/index/getdate',
-                    dataType: "json",
-                    data: {
-                        time:value
-                    },
-                    success:function (res) {
-                        console.log(res);
-                        res=res.data;
-                        for(var i=0;i<res.length;i++){
-                            result+=
-                                '<li class="layui-nav-item" data-id="'+res[i]['user_id']+'" id="'+res[i]['user_id']+'" data-name="'+res[i]['user_name']+'" data-avatar="http://wx2.sinaimg.cn/mw690/5db11ff4gy1flxmew7edlj203d03wt8n.jpg" data-ip="'+res[i]['user_ip']+'" data-start_time="'+res[i]['start_time']+'">'
-                                +'<span class="user-name">'+res[i]['user_name']+'</span>'
-                                +'<span class="" style="margin-left:5px"></span>'
-                                +'</li>'
-                        }
-                        $('#user_list').html(result);
-                        console.log(checkUser())
-                        checkUser();
-                    }
-                });
+                searchCustomer(value,$('#txtCustomerName').val())
             }
         });
     });
+
+    function chgCustomerName() {
+        searchCustomer($('#txtServiceTime').val(),$('#txtCustomerName').val());
+    }
+
+    function searchCustomer(serviceTime,customerName){
+        $.ajax({
+            type: 'POST',
+            url: '/service/index/ajax_search_customer',
+            dataType: "json",
+            data: {
+                service_time:serviceTime,customer_name: customerName
+            },
+            success:function (res) {
+                res=res.data;
+                var result='';
+                for(var i=0;i<res.length;i++){
+                    result+=
+                        '<li class="layui-nav-item" data-id="'+res[i]['user_id']+'" id="'+res[i]['user_id']+'" data-name="'+res[i]['user_name']+'" data-avatar="http://wx2.sinaimg.cn/mw690/5db11ff4gy1flxmew7edlj203d03wt8n.jpg" data-ip="'+res[i]['user_ip']+'" data-start_time="'+res[i]['start_time']+'">'
+                        +'<span class="user-name">'+res[i]['user_name']+'</span>'
+                        +'<span class="" style="margin-left:5px"></span>'
+                        +'</li>'
+                }
+                $('#user_list').html(result);
+                checkUser();
+            }
+        });
+    }
 </script>
 <script type="text/javascript" src="/static/service/js/functions.js"></script>
 </body>

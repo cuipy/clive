@@ -73,7 +73,7 @@ class Index extends Base
     }
     public function history(){
         $kefu_userid=Session::get('kefu_userid');
-        $user_list=db('service_log')->where('kf_id',$kefu_userid)->column('user_id,user_name,user_ip,start_time');
+        $user_list=db('service_log')->where('kf_id',$kefu_userid)->order('start_time','desc')->column('user_id,user_name,user_ip,start_time');
         $this->assign('user_list',$user_list);
         return $this->fetch();
     }
@@ -82,21 +82,30 @@ class Index extends Base
      * @return \think\response\Json
      * 根据时间范围搜索
      */
-    public function getdate()
+    public function ajax_search_customer()
     {
         //获取时间
-        $time = input('post.time');
+        $time = input('post.service_time');
+        $customer_name = input('post.customer_name');
+
         //获得开始时间和结束时间
         $start_time=substr($time,0,10);
-        $end_time=substr($time,-10);
+        $end_time=substr($time,-10).' 23:59:59';
         //转化成时间戳
-        $start_time=strtotime($start_time);
-        $end_time=strtotime($end_time);
+        $start_time1=strtotime($start_time);
+        $end_time1=strtotime($end_time);
         //传数据
         $kefu_userid=Session::get('kefu_userid');
-        $user_list=db('service_log')->where('kf_id',$kefu_userid)->where('start_time','>',$start_time)->where('start_time','<',$end_time)->column('user_id,user_name,user_ip,start_time');
+        $user_list=db('service_log')->where('kf_id',$kefu_userid);
+        if($time!=null&&$time!=''){
+            $user_list = $user_list->where('start_time','>=',$start_time1)->where('start_time','<=',$end_time1);
+        }
+        if($customer_name!=null&&$customer_name!=''){
+            $user_list = $user_list->whereLike('user_name','%'.$customer_name.'%');
+        }
+        $user_list = $user_list->order('start_time','desc') ->column('user_id,user_name,user_ip,start_time');
         $user_list=array_values($user_list);
-        return json(['code' => 1, 'data' => $user_list, 'msg' => 'ok']);
+        return json(['code' => 1, 'data' => $user_list, 'msg' => 'ok,endTime:'.$start_time1]);
     }
     // ip 定位
     public function gettime()
