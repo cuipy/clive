@@ -17,6 +17,11 @@ class Script extends Controller
         $container = input('get.container');
         $icon_width = input('get.icon_width');
         $text_width = input('get.text_width');
+        $icon = input('get.icon');
+
+        if($icon==null||$icon==''){
+            $icon="https://clive.pingbuwang.com/static/demo/images/l04.png";
+        }
 
         $website=db('website')->where('website_key',$key)->find();
         if($website==null){
@@ -33,6 +38,7 @@ class Script extends Controller
             'jgroups' => $jgroups,
             'uid' => cookie('kf_customer_id'),
             'uname' => cookie('kf_customer_name'),
+            'icon' => $icon,
         ]);
 
         return $this->fetch();
